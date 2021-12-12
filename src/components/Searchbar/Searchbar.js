@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { ImSearch } from 'react-icons/im';
 import styles from '../styles.module.css';
 
-const Searchbar = ({ onSubmit }) => (
-  <header>
-    <form class="form" onSubmit={onSubmit}>
-      <button className={styles.button} type="submit">
-        <span className={styles.buttonLabel}>Search</span>
-      </button>
-      <input
-        className={styles.input}
-        type="text"
-        autocomplete="off"
-        autoFocus
-        placeholder="Search images and photos"
-      />
-    </form>
-  </header>
-);
-export default Searchbar;
+export default class Searchbar extends Component {
+  state = {
+    name: '',
+  };
+
+  handleInputChange = e => {
+    this.setState({ name: e.currentTarget.value });
+  };
+
+  onInputSubmit = e => {
+    const { onSubmit } = this.props;
+    e.preventDefault();
+    onSubmit(this.state.name);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({ name: '' });
+  };
+
+  render() {
+    return (
+      <header>
+        <form class="form" onSubmit={this.onInputSubmit}>
+          <input
+            className={styles.input}
+            type="text"
+            name="name"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleInputChange}
+            value={this.state.value}
+          />
+          <button className={styles.button} type="submit">
+            <ImSearch style={{ marginRight: 8 }} />
+            <span className={styles.buttonLabel}>Search</span>
+          </button>
+        </form>
+      </header>
+    );
+  }
+}
