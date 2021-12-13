@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import styles from './components/styles.module.css';
 import Searchbar from './components/Searchbar/Searchbar';
 import { Component } from 'react';
