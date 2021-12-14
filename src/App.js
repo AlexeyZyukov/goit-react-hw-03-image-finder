@@ -14,8 +14,6 @@ class App extends Component {
       return alert('Nothing to search. Enter name, please.');
     }
     this.setState({ pictureName });
-    // console.log(pictureName)
-    // console.log(this.state.pictureName)
   };
 
   componentDidMount() {

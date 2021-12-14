@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import LoadError from '../LoadError/LoadError';
 import Spinner from '../Spinner/Spinner';
-import FetchPictures from '../API/APIservice';
+import API from '../API/APIservice';
 import ImageGallery from '../ImageGallery/ImageGallery';
 
 const Status = {
@@ -24,12 +24,13 @@ export default class FetchImages extends Component {
 
     if (prevProps.pictureName !== this.props.pictureName) {
       console.log('Picture name was changed');
-      // console.log('prevProps.pictureName = ', prevProps.pictureName); //дает ""
-      // console.log('this.props.pictureName = ', this.props.pictureName);//дает введенное название
 
       this.setState({ status: Status.PENDING });
 
-      FetchPictures(this.state.picture, 1)
+      API.fetchPictures(this.state.picture, 1)
+        .then(data => {
+          return data.hits;
+        })
         .then(picture => this.setState({ picture, status: Status.RESOLVED }))
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
@@ -53,8 +54,7 @@ export default class FetchImages extends Component {
       return (
         <div>
           {pictureName}
-          {/* {picture} */}
-          <ImageGallery picture={picture.hits} />
+          <ImageGallery picture={picture} />
         </div>
       );
     }
