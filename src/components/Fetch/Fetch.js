@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import LoadError from '../LoadError/LoadError';
+import Loader from '../Loader/Loader';
 
-const BASE_URL = 'https://pixabay.com/ap/';
+const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '22969480-c3583c2b4b1ca4646f49ed52f';
 
 const Status = {
@@ -36,11 +37,11 @@ export default class FetchImages extends Component {
             return response.json();
           }
           return Promise.reject(
-            new Error('Нет картинки с названием ${this.props.pictureName}'),
+            new Error(`Нет картинки с названием ${this.props.pictureName}`),
           );
         })
         .then(picture => this.setState({ picture, status: Status.RESOLVED }))
-        .catch(error => this.setState({ error, status: 'rejected' }));
+        .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
   }
 
@@ -52,7 +53,7 @@ export default class FetchImages extends Component {
       return <p>Input name of picture to search</p>;
     }
     if (status === 'pending') {
-      return <p>Loading....</p>;
+      return <Loader />;
     }
     if (status === 'rejected') {
       return <LoadError message={error.message} />;
