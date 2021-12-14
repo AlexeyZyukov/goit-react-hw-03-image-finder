@@ -5,12 +5,13 @@ import styles from '../styles.module.css';
 export default function ImageGallery({ picture }) {
   return (
     <ul class={styles.gallery}>
+      {/* console.log({picture}) */}
       {picture.map(({ id, webformatURL, tags, largeImageURL }) => (
         <ImageGalleryItem
           key={id}
-          src={webformatURL}
+          smallImage={webformatURL}
           alt={tags}
-          data-source={largeImageURL}
+          largeImage={largeImageURL}
         />
       ))}
     </ul>

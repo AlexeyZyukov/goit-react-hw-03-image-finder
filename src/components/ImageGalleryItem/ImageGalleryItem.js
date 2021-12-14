@@ -1,20 +1,16 @@
 import React from 'react';
 import styles from '../styles.module.css';
 
-export default function ImageGalleryItem({
-  id,
-  tags,
-  webformatURL,
-  largeImageURL,
-}) {
+export default function ImageGalleryItem({ key, alt, smallImage, largeImage }) {
   // console.log(src, alt, largeImage, id);
   return (
-    <li key={id} className={styles.galleryItem}>
+    <li key={key} className={styles.galleryItem}>
       <img
         className={styles.galleryImg}
-        alt={tags}
-        src={webformatURL}
-        data-source={largeImageURL}
+        width="320"
+        src={smallImage}
+        alt={alt}
+        data-source={largeImage}
       />
     </li>
   );

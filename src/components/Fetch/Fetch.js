@@ -1,10 +1,8 @@
 import { Component } from 'react';
 import LoadError from '../LoadError/LoadError';
 import Spinner from '../Spinner/Spinner';
-import APIservise from '../API/APIservice';
-
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '22969480-c3583c2b4b1ca4646f49ed52f';
+import FetchPictures from '../API/APIservice';
+import ImageGallery from '../ImageGallery/ImageGallery';
 
 const Status = {
   IDLE: 'idle',
@@ -31,7 +29,7 @@ export default class FetchImages extends Component {
 
       this.setState({ status: Status.PENDING });
 
-      APIservise(this.state.picture, 1)
+      FetchPictures(this.state.picture, 1)
         .then(picture => this.setState({ picture, status: Status.RESOLVED }))
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
@@ -56,7 +54,7 @@ export default class FetchImages extends Component {
         <div>
           {pictureName}
           {/* {picture} */}
-          {/* <img src={picture.hits.webformatURL} alt="" width="320"></img> */}
+          <ImageGallery picture={picture.hits} />
         </div>
       );
     }
