@@ -2,7 +2,7 @@ import styles from './components/styles.module.css';
 import Searchbar from './components/Searchbar/Searchbar';
 import { Component } from 'react';
 import FetchImages from './components/Fetch/Fetch';
-// import Spinner from './components/Loader/Loader';
+// import Spinner from './components/Spinner/Spinner';
 
 class App extends Component {
   state = {
