@@ -8,9 +8,8 @@ const FetchImages = (nextName, page) => {
     if (response.ok) {
       return response.json();
     }
-    return Promise.reject(new Error('Нет картинки с таким названием '));
+    // return Promise.reject(new Error(`Нет картинки с таким названием ${nextName}`));
   });
-  // .catch(error => this.setState({ error }));
 };
 
 export default FetchImages;

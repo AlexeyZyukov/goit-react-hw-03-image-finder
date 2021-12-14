@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import LoadError from '../LoadError/LoadError';
-import Loader from '../Loader/Loader';
+import Spinner from '../Loader/Loader';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '22969480-c3583c2b4b1ca4646f49ed52f';
@@ -53,7 +53,7 @@ export default class FetchImages extends Component {
       return <p>Input name of picture to search</p>;
     }
     if (status === 'pending') {
-      return <Loader />;
+      return <Spinner />;
     }
     if (status === 'rejected') {
       return <LoadError message={error.message} />;
