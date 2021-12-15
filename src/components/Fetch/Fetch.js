@@ -23,15 +23,16 @@ export default class FetchImages extends Component {
     // const { nextName } = this.props.pictureName;
 
     if (prevProps.pictureName !== this.props.pictureName) {
-      console.log('Picture name was changed');
-
+      // console.log('Picture name was changed');
       this.setState({ status: Status.PENDING });
 
-      API.fetchPictures(this.state.picture, 1)
+      API.fetchPictures(this.props.pictureName, 1)
         .then(data => {
           return data.hits;
         })
-        .then(picture => this.setState({ picture, status: Status.RESOLVED }))
+        .then(picture => {
+          return this.setState({ picture, status: Status.RESOLVED });
+        })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
   }
