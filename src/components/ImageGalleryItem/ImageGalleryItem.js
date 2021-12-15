@@ -1,7 +1,13 @@
 import styles from './imageGaleryItem.module.css';
 
-export default function ImageGalleryItem({ id, alt, smallImage, largeImage }) {
-  // console.log(src, alt, largeImage, id);
+export default function ImageGalleryItem({
+  id,
+  alt,
+  smallImage,
+  largeImage,
+  onClickImg,
+}) {
+  console.log(smallImage, alt, largeImage, id, onClickImg);
   return (
     <li key={id} className={styles.galleryItem}>
       <img
@@ -9,6 +15,9 @@ export default function ImageGalleryItem({ id, alt, smallImage, largeImage }) {
         src={smallImage}
         alt={alt}
         data-source={largeImage}
+        onClick={() => {
+          onClickImg(largeImage);
+        }}
       />
     </li>
   );
