@@ -2,7 +2,6 @@ import styles from './App.module.css';
 import Searchbar from './components/Searchbar/Searchbar';
 import { Component } from 'react';
 import FetchImages from './components/Fetch/Fetch';
-// import Spinner from './components/Spinner/Spinner';
 
 export default class App extends Component {
   state = {
