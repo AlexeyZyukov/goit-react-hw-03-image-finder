@@ -40,10 +40,19 @@ export default class FetchImages extends Component {
   wrapperForFetch(nextName, nextPage) {
     API.fetchPictures(nextName, nextPage)
       .then(data => {
-        return this.setState({
-          pictures: [...this.state.pictures, ...data.hits],
-          status: Status.RESOLVED,
+        this.setState(prevState => {
+          return {
+            pictures: [...prevState.pictures, ...data.hits],
+            status: Status.RESOLVED,
+          };
         });
+
+        if (this.prevPage !== nextPage) {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
       })
       .catch(error => this.setState({ error, status: Status.REJECTED }));
   }
