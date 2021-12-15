@@ -1,5 +1,5 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import styles from '../styles.module.css';
+import styles from './imageGalery.module.css';
 
 export default function ImageGallery({ picture }) {
   return (

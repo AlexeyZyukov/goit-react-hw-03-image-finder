@@ -1,10 +1,10 @@
-import styles from './components/styles.module.css';
+import styles from './App.module.css';
 import Searchbar from './components/Searchbar/Searchbar';
 import { Component } from 'react';
 import FetchImages from './components/Fetch/Fetch';
 // import Spinner from './components/Spinner/Spinner';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     pictureName: '',
   };
@@ -24,13 +24,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.App}>
         <Searchbar onSubmit={this.handleSearchSubmit} />
         <FetchImages pictureName={this.state.pictureName} />
-        {/* <Spinner /> */}
       </div>
     );
   }
 }
-
-export default App;

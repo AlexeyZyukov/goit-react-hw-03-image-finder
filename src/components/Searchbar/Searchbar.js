@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ImSearch } from 'react-icons/im';
-import styles from '../styles.module.css';
+import styles from './searchbar.module.css';
 
 export default class Searchbar extends Component {
   static = {
@@ -41,9 +41,9 @@ export default class Searchbar extends Component {
             onChange={this.handleInputChange}
             value={this.state.value}
           />
-          <button className={styles.button} type="submit">
+          <button className={styles.SearchForm_button} type="submit">
             <ImSearch style={{ marginRight: 8 }} />
-            <span className={styles.buttonLabel}>Search</span>
+            <span className={styles.SearchForm_button_label}>Search</span>
           </button>
         </form>
       </header>

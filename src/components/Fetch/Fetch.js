@@ -54,7 +54,6 @@ export default class FetchImages extends Component {
     if (status === 'resolved') {
       return (
         <div>
-          {pictureName}
           <ImageGallery picture={picture} />
         </div>
       );
