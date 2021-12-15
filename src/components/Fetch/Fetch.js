@@ -14,30 +14,38 @@ const Status = {
 
 export default class FetchImages extends Component {
   state = {
-    picture: null,
+    pictures: [],
     error: null,
     status: Status.IDLE,
     page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    // const { prevName } = prevProps.pictureName; //не работает с деструктурированием!! Почему???
-    // const { nextName } = this.props.pictureName;
+    const prevName = prevProps.pictureName;
+    const prevPage = prevState.page;
+    const nextName = this.props.pictureName;
+    const nextPage = this.state.page;
 
-    if (prevProps.pictureName !== this.props.pictureName) {
-      // console.log('Picture name was changed');
+    if (prevName !== nextName) {
       this.setState({ status: Status.PENDING });
-
-      API.fetchPictures(this.props.pictureName, this.state.page)
-        .then(data => {
-          console.log(this.state.page);
-          return data.hits;
-        })
-        .then(picture => {
-          return this.setState({ picture, status: Status.RESOLVED });
-        })
-        .catch(error => this.setState({ error, status: Status.REJECTED }));
+      this.setState({ page: 1, pictures: [] });
+      this.wrapperForFetch(nextName, nextPage);
     }
+
+    if (prevPage !== nextPage) {
+      this.wrapperForFetch(nextName, nextPage);
+    }
+  }
+
+  wrapperForFetch(nextName, nextPage) {
+    API.fetchPictures(nextName, nextPage)
+      .then(data => {
+        return this.setState({
+          pictures: [...this.state.pictures, ...data.hits],
+          status: Status.RESOLVED,
+        });
+      })
+      .catch(error => this.setState({ error, status: Status.REJECTED }));
   }
 
   loadMore = () => {
@@ -48,7 +56,7 @@ export default class FetchImages extends Component {
   };
 
   render() {
-    const { picture, error, status } = this.state;
+    const { pictures, error, status } = this.state;
 
     if (status === 'idle') {
       return <p>Input name of picture to search</p>;
@@ -63,7 +71,7 @@ export default class FetchImages extends Component {
     if (status === 'resolved') {
       return (
         <div>
-          <ImageGallery picture={picture} />
+          <ImageGallery pictures={pictures} />
           <Button onClickLoad={this.loadMore} />
         </div>
       );

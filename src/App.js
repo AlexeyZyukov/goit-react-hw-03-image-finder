@@ -23,10 +23,11 @@ export default class App extends Component {
   }
 
   render() {
+    const { pictureName } = this.state;
     return (
       <div className={styles.App}>
         <Searchbar onSubmit={this.handleSearchSubmit} />
-        <FetchImages pictureName={this.state.pictureName} />
+        <FetchImages pictureName={pictureName} />
       </div>
     );
   }
