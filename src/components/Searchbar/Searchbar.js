@@ -29,10 +29,10 @@ export default class Searchbar extends Component {
 
   render() {
     return (
-      <header>
-        <form class="form" onSubmit={this.onInputSubmit}>
+      <header className={styles.Searchbar}>
+        <form className={styles.SearchForm} onSubmit={this.onInputSubmit}>
           <input
-            className={styles.input}
+            className={styles.SearchForm_input}
             type="text"
             name="name"
             autoComplete="off"

@@ -1,7 +1,7 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import styles from './imageGalery.module.css';
 
-export default function ImageGallery({ pictures }) {
+export default function ImageGallery({ pictures, toggleModal }) {
   return (
     <ul class={styles.gallery}>
       {/* console.log({picture}) */}
@@ -11,6 +11,9 @@ export default function ImageGallery({ pictures }) {
           smallImage={webformatURL}
           alt={tags}
           largeImage={largeImageURL}
+          onClick={() => {
+            toggleModal(largeImageURL);
+          }}
         />
       ))}
     </ul>

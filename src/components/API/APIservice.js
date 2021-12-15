@@ -8,12 +8,9 @@ function fetchPictures(nextName, nextPage) {
     if (response.ok) {
       return response.json();
     }
-    return Promise.reject(
-      new Error(`Нет картинки с таким названием ${nextName}`),
-    );
+    return Promise.reject(new Error(`Нет картинки с названием ${nextName}`));
   });
 }
-// export default FetchPictures;
 
-const API = { fetchPictures }; //формирование метода. для этого fetchPicture описать функцией.
-export default API; //экспорт метода
+const API = { fetchPictures };
+export default API;
