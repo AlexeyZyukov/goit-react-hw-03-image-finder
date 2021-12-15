@@ -3,6 +3,7 @@ import LoadError from '../LoadError/LoadError';
 import Spinner from '../Spinner/Spinner';
 import API from '../API/APIservice';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import Button from '../Button/Button';
 
 const Status = {
   IDLE: 'idle',
@@ -16,6 +17,7 @@ export default class FetchImages extends Component {
     picture: null,
     error: null,
     status: Status.IDLE,
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -26,8 +28,9 @@ export default class FetchImages extends Component {
       // console.log('Picture name was changed');
       this.setState({ status: Status.PENDING });
 
-      API.fetchPictures(this.props.pictureName, 1)
+      API.fetchPictures(this.props.pictureName, this.state.page)
         .then(data => {
+          console.log(this.state.page);
           return data.hits;
         })
         .then(picture => {
@@ -37,9 +40,15 @@ export default class FetchImages extends Component {
     }
   }
 
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+    console.log(this.state.page);
+  };
+
   render() {
     const { picture, error, status } = this.state;
-    const { pictureName } = this.props;
 
     if (status === 'idle') {
       return <p>Input name of picture to search</p>;
@@ -55,6 +64,7 @@ export default class FetchImages extends Component {
       return (
         <div>
           <ImageGallery picture={picture} />
+          <Button onClickLoad={this.loadMore} />
         </div>
       );
     }
