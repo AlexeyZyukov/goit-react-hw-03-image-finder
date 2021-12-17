@@ -1,15 +1,14 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import styles from './imageGalery.module.css';
+import styles from './imageGallery.module.css';
 
 export default function ImageGallery({ pictures, toggleModal }) {
-  console.log({ pictures, toggleModal });
   return (
     <ul class={styles.gallery}>
-      {pictures.map(({ id, webformatURL, tags, largeImageURL }) => (
+      {pictures.map(({ id, tags, webformatURL, largeImageURL }) => (
         <ImageGalleryItem
           key={id}
           smallImage={webformatURL}
-          alt={tags}
+          tags={tags}
           largeImage={largeImageURL}
           onClickImg={() => {
             toggleModal(largeImageURL);

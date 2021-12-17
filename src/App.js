@@ -76,48 +76,47 @@ export default class App extends Component {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
-    console.log(this.state.page);
   };
 
   toggleModal = largeImageURL => {
-    this.setState(({ showModal, biggerImage }) => ({
+    this.setState(({ showModal }) => ({
       showModal: !showModal,
       biggerImage: largeImageURL,
     }));
   };
 
-  render() {
-    const { pictures, error, status } = this.state;
+  closeModal = () => {
+    this.setState(() => ({ showModal: false }));
+  };
 
-    if (status === 'idle') {
-      return (
-        <div className={styles.App}>
-          <Searchbar onSubmit={this.handleSearchSubmit} />
-          <p>Input name of picture to search</p>
-        </div>
-      );
-    }
-    if (status === 'pending') {
-      return <Spinner />;
-    }
-    if (status === 'rejected') {
-      console.log(error.message);
-      return <LoadError message={error.message} />;
-    }
-    if (status === 'resolved') {
-      return (
-        <div className={styles.App}>
-          <Searchbar onSubmit={this.handleSearchSubmit} />
-          <ImageGallery pictures={pictures} />
-          <Button onClickLoad={this.loadMore} />
+  render() {
+    const { pictures, error, status, biggerImage, showModal } = this.state;
+
+    return (
+      <div className={styles.App}>
+        <Searchbar onSubmit={this.handleSearchSubmit} />
+        {status === 'idle' && <p>Input name of picture to search</p>}
+        {status === 'pending' && <Spinner />}
+
+        {status === 'rejected' && <LoadError message={error.message} />}
+
+        {status === 'resolved' && (
+          <div className={styles.App}>
+            <ImageGallery pictures={pictures} toggleModal={this.toggleModal} />
+            <Button onClickLoad={this.loadMore} />
+          </div>
+        )}
+
+        {showModal && (
           <Modal
-            onClickModal={() => {
+            onToggleModal={() => {
               this.toggleModal();
             }}
-            image={this.state.biggerImage}
+            image={biggerImage}
+            closeModal={this.closeModal}
           />
-        </div>
-      );
-    }
+        )}
+      </div>
+    );
   }
 }
